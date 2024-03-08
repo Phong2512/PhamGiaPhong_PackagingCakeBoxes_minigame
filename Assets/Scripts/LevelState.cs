@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-
-public class LevelState : MonoBehaviour
+[CreateAssetMenu(menuName = "Level State")]
+public class LevelState : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public int level;
+    public int amout;
+    public TileInfomation[] tileInfomation;
+    [System.Serializable]
+    public class TileInfomation
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public int id;
+        public int x_Pos;
+        public int y_Pos;
     }
 }

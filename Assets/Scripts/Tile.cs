@@ -60,4 +60,13 @@ public class Tile : MonoBehaviour
             this.gameObject.SetActive(false);
         });
     }
+    public void RestartBlock()
+    {
+        if (this.cell != null)
+        {
+            this.cell.tile = null;
+        }
+        this.cell = null;
+
+    }
 }
