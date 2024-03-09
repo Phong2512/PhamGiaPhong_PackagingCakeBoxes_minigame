@@ -61,7 +61,7 @@ public class Tile : MonoBehaviour
             this.gameObject.SetActive(false);
         });
     }
-    public void RestartBlock()
+    public void RestartTile()
     {
         if (this.cell != null)
         {

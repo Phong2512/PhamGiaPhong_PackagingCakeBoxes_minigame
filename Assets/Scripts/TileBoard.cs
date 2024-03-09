@@ -48,10 +48,11 @@ public class TileBoard : MonoBehaviour
         this.amout = amout;
     }
 
-    //Khoi Tạo tile
+    #region CreateTile
     public void Create(int num, int x, int y)
     {
         index++;
+
         if (num == 0)
         {
             if (blocks.Count >= index)
@@ -75,7 +76,10 @@ public class TileBoard : MonoBehaviour
             }
         }
     }
-
+    public void SetUpRow(bool isUp)
+    {
+        grid.UpdateRow(isUp);
+    }
     private void CreateTile(int num, int x, int y)
     {
         Tile tile = Instantiate(tilePrefab, grid.transform);
@@ -117,6 +121,7 @@ public class TileBoard : MonoBehaviour
         }
 
     }
+    #endregion
     private void Update()
     {
         if (isDone) return;
@@ -126,7 +131,7 @@ public class TileBoard : MonoBehaviour
             MoveWithKey();
         }
     }
-
+    #region HandleMove
     private void MoveWithKey()
     {
 
@@ -221,10 +226,25 @@ public class TileBoard : MonoBehaviour
         }
         return false;
     }
-    //Kiem tra id > 0
+    IEnumerator WaitFowMove()
+    {
+        waiting = true;
+        yield return new WaitForSeconds(0.1f);
+        if (amout == cout)
+        {
+            isDone = true;
+            GameController.Instance.ClearGame(CheckWin());
+        }
+        else
+        {
+            waiting = false;
+        }
+    }
+    #endregion
+
     private bool CanMerge(Tile a, Tile b)
     {
-        if (a.id > 0 && b.id > 0)
+        if (a.id > 0 && b.id > 0 && a.id != b.id)
         {
             return true;
         }
@@ -238,20 +258,7 @@ public class TileBoard : MonoBehaviour
         a.Merge(b.cell, tileStates[2]);
         cout++;
     }
-    IEnumerator WaitFowMove()
-    {
-        waiting = true;
-        yield return new WaitForSeconds(0.1f);
-        if (CheckWin())
-        {
-            isDone = true;
-            GameController.Instance.ClearGame(CheckWin());
-        }
-        else
-        {
-            waiting = false;
-        }
-    }
+
     private bool CheckWin()
     {
         return cout == amout;
@@ -267,6 +274,7 @@ public class TileBoard : MonoBehaviour
         {
             if (tile.gameObject.activeInHierarchy)
             {
+                tile.RestartTile();
                 tile.gameObject.SetActive(false);
             }
         }
@@ -274,7 +282,7 @@ public class TileBoard : MonoBehaviour
         {
             if (block.gameObject.activeInHierarchy)
             {
-                block.RestartBlock();
+                block.RestartTile();
                 block.gameObject.SetActive(false);
             }
         }

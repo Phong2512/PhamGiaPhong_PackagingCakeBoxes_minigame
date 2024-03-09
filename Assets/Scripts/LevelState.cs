@@ -6,6 +6,7 @@ public class LevelState : ScriptableObject
     public int level;
     public int amout;
     public TileInfomation[] tileInfomation;
+    public bool upRow;
     [System.Serializable]
     public class TileInfomation
     {
