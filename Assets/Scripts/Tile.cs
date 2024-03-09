@@ -47,7 +47,7 @@ public class Tile : MonoBehaviour
         this.cell.tile = this;
         this.transform.DOMove(cell.transform.position, 0.1f).SetEase(Ease.OutSine);
     }
-    public void Merge(TileCell cell)
+    public void Merge(TileCell cell, TileState tileState)
     {
         if (this.cell != null)
         {
@@ -57,6 +57,7 @@ public class Tile : MonoBehaviour
         this.id = -1;
         this.transform.DOMove(cell.transform.position, 0.1f).SetEase(Ease.OutSine).OnComplete(() =>
         {
+            cell.tile.SetState(tileState);
             this.gameObject.SetActive(false);
         });
     }

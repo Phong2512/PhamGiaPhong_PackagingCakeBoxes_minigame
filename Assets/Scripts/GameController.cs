@@ -97,9 +97,13 @@ public class GameController : MonoBehaviour
     public void NextLv()
     {
         Board.RestartGame();
-        levels[inGameLv - 1].isClearLv = true;
-        levels[inGameLv].Unlock();
-        levels[inGameLv].StartLvGame();
+        if (levels.Length > inGameLv)
+        {
+            levels[inGameLv - 1].isClearLv = true;
+            levels[inGameLv].Unlock();
+            levels[inGameLv].StartLvGame();
+        }
+
     }
     public void ClearGame(bool isWin)
     {

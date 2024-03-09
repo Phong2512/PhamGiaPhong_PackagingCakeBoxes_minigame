@@ -22,6 +22,9 @@ public class TileBoard : MonoBehaviour
     private bool waiting = false;
     private int index;
     private bool stopTime;
+
+
+
     private void Awake()
     {
         if (instance == null)
@@ -44,6 +47,7 @@ public class TileBoard : MonoBehaviour
     {
         this.amout = amout;
     }
+
     //Khoi Tạo tile
     public void Create(int num, int x, int y)
     {
@@ -119,27 +123,61 @@ public class TileBoard : MonoBehaviour
         Countdown();
         if (!waiting)
         {
+            MoveWithKey();
+        }
+    }
 
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                HandleMoveTiles(Vector2Int.up, 0, 1, 1, 1);
-            }
-            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                HandleMoveTiles(Vector2Int.down, 0, 1, grid.height - 2, -1);
-            }
-            else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                HandleMoveTiles(Vector2Int.left, 1, 1, 0, 1);
-            }
+    private void MoveWithKey()
+    {
 
-            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            HandleMoveTiles(Vector2Int.up, 0, 1, 1, 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            HandleMoveTiles(Vector2Int.down, 0, 1, grid.height - 2, -1);
+        }
+        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            HandleMoveTiles(Vector2Int.left, 1, 1, 0, 1);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            HandleMoveTiles(Vector2Int.right, grid.width - 2, -1, 0, 1);
+        }
+    }
+    public void LeanSwipeMove(int num)
+    {
+        if (!waiting)
+        {
+            switch (num)
             {
-                HandleMoveTiles(Vector2Int.right, grid.width - 2, -1, 0, 1);
+                case 0:
+                    {
+                        HandleMoveTiles(Vector2Int.up, 0, 1, 1, 1);
+                        break;
+                    }
+                case 1:
+                    {
+                        HandleMoveTiles(Vector2Int.right, grid.width - 2, -1, 0, 1);
+                        break;
+                    }
+                case 2:
+                    {
+                        HandleMoveTiles(Vector2Int.down, 0, 1, grid.height - 2, -1);
+                        break;
+                    }
+                case 3:
+                    {
+                        HandleMoveTiles(Vector2Int.left, 1, 1, 0, 1);
+                        break;
+                    }
             }
         }
     }
-    private void HandleMoveTiles(Vector2Int direction, int startX, int incrementX, int startY, int incrementY)
+    public void HandleMoveTiles(Vector2Int direction, int startX, int incrementX, int startY, int incrementY)
     {
         bool changed = false;
         for (int x = startX; x >= 0 && x < grid.width; x += incrementX)
@@ -197,8 +235,7 @@ public class TileBoard : MonoBehaviour
     }
     private void Merge(Tile a, Tile b)
     {
-        a.Merge(b.cell);
-        b.SetState(tileStates[2]);
+        a.Merge(b.cell, tileStates[2]);
         cout++;
     }
     IEnumerator WaitFowMove()
