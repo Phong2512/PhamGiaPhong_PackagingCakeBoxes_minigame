@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d33f6eeab7c684083c73c5fd8bf368, type: 3}
   m_Name: Level 3
   m_EditorClassIdentifier: 
-  level: 1
+  level: 3
   amout: 1
   tileInfomation:
   - id: 1

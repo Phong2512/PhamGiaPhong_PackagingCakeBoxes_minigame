@@ -124,7 +124,6 @@ public class TileBoard : MonoBehaviour
         if (!waiting)
         {
             MoveWithKey();
-
         }
     }
 
@@ -147,6 +146,35 @@ public class TileBoard : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             HandleMoveTiles(Vector2Int.right, grid.width - 2, -1, 0, 1);
+        }
+    }
+    public void LeanSwipeMove(int num)
+    {
+        if (!waiting)
+        {
+            switch (num)
+            {
+                case 0:
+                    {
+                        HandleMoveTiles(Vector2Int.up, 0, 1, 1, 1);
+                        break;
+                    }
+                case 1:
+                    {
+                        HandleMoveTiles(Vector2Int.right, grid.width - 2, -1, 0, 1);
+                        break;
+                    }
+                case 2:
+                    {
+                        HandleMoveTiles(Vector2Int.down, 0, 1, grid.height - 2, -1);
+                        break;
+                    }
+                case 3:
+                    {
+                        HandleMoveTiles(Vector2Int.left, 1, 1, 0, 1);
+                        break;
+                    }
+            }
         }
     }
     public void HandleMoveTiles(Vector2Int direction, int startX, int incrementX, int startY, int incrementY)
@@ -207,8 +235,7 @@ public class TileBoard : MonoBehaviour
     }
     private void Merge(Tile a, Tile b)
     {
-        a.Merge(b.cell);
-        b.SetState(tileStates[2]);
+        a.Merge(b.cell, tileStates[2]);
         cout++;
     }
     IEnumerator WaitFowMove()
