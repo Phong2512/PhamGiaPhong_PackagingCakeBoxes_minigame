@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d33f6eeab7c684083c73c5fd8bf368, type: 3}
+  m_Name: Level 6
+  m_EditorClassIdentifier: 
+  level: 6
+  amout: 1
+  tileInfomation:
+  - id: 1
+    x_Pos: 1
+    y_Pos: 3
+  - id: 2
+    x_Pos: 2
+    y_Pos: 0
+  - id: 0
+    x_Pos: 1
+    y_Pos: 0
+  - id: 0
+    x_Pos: 0
+    y_Pos: 2
+  - id: 0
+    x_Pos: 2
+    y_Pos: 2
+  upRow: 1

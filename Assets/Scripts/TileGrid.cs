@@ -9,6 +9,7 @@ public class TileGrid : MonoBehaviour
     public int size => cells.Length;
     public int height => rows.Length;
     public int width => size / height;
+    private bool isUpRow = false;
     private void Awake()
     {
         rows = GetComponentsInChildren<TileRow>();
@@ -24,6 +25,7 @@ public class TileGrid : MonoBehaviour
             }
         }
     }
+
     public TileCell GetCell(int x, int y)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
@@ -64,5 +66,25 @@ public class TileGrid : MonoBehaviour
     //    //}
     //    return GetCell(x, y);
     //}
-
+    public void UpdateRow(bool isUp)
+    {
+        if (isUpRow != isUp)
+        {
+            this.transform.GetChild(3).gameObject.SetActive(isUp);
+            rows = GetComponentsInChildren<TileRow>();
+            cells = GetComponentsInChildren<TileCell>();
+            LocateCell();
+            isUpRow = isUp;
+        }
+    }
+    private void LocateCell()
+    {
+        for (int y = 0; y < rows.Length; y++)
+        {
+            for (int x = 0; x < rows[y].cells.Length; x++)
+            {
+                rows[y].cells[x].coordinates = new Vector2Int(x, y);
+            }
+        }
+    }
 }
